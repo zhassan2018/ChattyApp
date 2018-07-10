@@ -4,8 +4,8 @@ class Chatbar extends Component {
   render() {
     return (
       <footer className="chatbar">
-        <input class="chatbar-username" placeholder="Your Name (Optional)" />
-        <input class="chatbar-message" placeholder="Type a message and hit ENTER" />
+        <input className="chatbar-username" placeholder={this.props.name} />
+        <input className="chatbar-message" placeholder="Type a message and hit ENTER" />
       </footer>
     );
   }
