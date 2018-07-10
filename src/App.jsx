@@ -39,6 +39,25 @@ class App extends Component {
   }
 
 
+  addingMessage = (message) =>{
+    //Do the setState stuff in here
+    this.setState({
+      messages:[
+      {
+        username: this.state.currentUser.name,
+        content: message,
+        id: this.state.messages.length + 1,
+      
+      },
+      ...this.state.messages
+
+      ]
+    })
+
+
+  }
+
+
   render() {
     return (
     <div>
@@ -46,7 +65,7 @@ class App extends Component {
         <a href="/" className="navbar-brand">Chatty</a>
       </nav>
       <MessageList messages = {this.state.messages}/>
-      <Chatbar name = {this.state.currentUser.name}/>
+      <Chatbar addingMessage={this.addingMessage} name = {this.state.currentUser.name}/>
       </div>
 
     );
