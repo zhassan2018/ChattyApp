@@ -3,11 +3,9 @@ import React, {Component} from 'react';
 class Chatbar extends Component {
 	userMessage = (evt)=>{
 		evt.preventDefault()
-		console.log(evt.target.value)
 		const taskValue = evt.target.value
-		console.log(evt.key)
 		if (evt.key === 'Enter'){
-		this.props.addingMessage(taskValue)
+		this.props.addingMessage.onopen(taskValue)
 	}
 	}
   render() {

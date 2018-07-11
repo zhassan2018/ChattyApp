@@ -2,10 +2,13 @@ import React, {Component} from 'react';
 import Chatbar from './Chatbar.jsx'
 import MessageList from './MessageList.jsx'
 
+
+
 class App extends Component {
 
   constructor(props){
   super(props);
+
   this.state = {
   currentUser: {name: "Bob"}, 
   messages: [
@@ -23,6 +26,7 @@ class App extends Component {
     }
   ]
 }
+this.socket = new WebSocket('ws://localhost:3001');
   }
 
   componentDidMount() {
@@ -35,14 +39,28 @@ class App extends Component {
       // Update the state of the app component.
       // Calling setState will trigger a call to render() in App and all child components.
       this.setState({messages: messages})
+
     }, 3000);
+    
+    const ws = this.socket;
+    const username = this.state.currentUser.name
+
+
+    ws.onopen = function (event) {
+      console.log(event)
+
+      ws.send(event, username)
+    
+    };
+
+
   }
 
 
   addingMessage = (message) =>{
     //Do the setState stuff in here
-    this.setState({
-      messages:[
+    /*this.setState({
+     messages:[
       {
         username: this.state.currentUser.name,
         content: message,
@@ -53,6 +71,8 @@ class App extends Component {
 
       ]
     })
+    */
+
 
 
   }
