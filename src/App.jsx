@@ -6,77 +6,99 @@ import MessageList from './MessageList.jsx'
 
 class App extends Component {
 
-  constructor(props){
-  super(props);
+  constructor(props) {
+    super(props);
 
-  this.state = {
-  currentUser: {name: "Bob"}, 
-  messages: [
-    {
-      username: "Bob",
-      content: "Has anyone seen my marbles?",
-      id: 1,
-   
-    },
-    {
-      username: "Anonymous",
-      content: "No, I think you lost them. You lost your marbles Bob. You lost them for good.",
-      id: 2,
-     
+    this.state = {
+      currentUser: {name: "Bob"}, 
+      messages: [], 
     }
-  ]
-}
-this.socket = new WebSocket('ws://localhost:3001');
+
+    this.socket = new WebSocket('ws://localhost:3001');
   }
+
 
   componentDidMount() {
-    console.log("componentDidMount <App />");
-    setTimeout(() => {
-      console.log("Simulating incoming message");
-      // Add a new message to the list of messages in the data store
-      const newMessage = {id: 3, username: "Michelle", content: "Hello there!"};
-      const messages = this.state.messages.concat(newMessage)
-      // Update the state of the app component.
-      // Calling setState will trigger a call to render() in App and all child components.
-      this.setState({messages: messages})
+ 
+    this.socket.onmessage =  (event) => {
+      console.log(event.data);
+      const incomingMessage = JSON.parse(event.data);
+      switch(incomingMessage.type){
+      case 'incomingMessage':  
+      this.updateMessage(incomingMessage)
+      break;
+      case 'incomingNotification':
+      this.updateUser(incomingMessage)
+      break;
 
-    }, 3000);
-    
-    const ws = this.socket;
-    const username = this.state.currentUser.name
+    }
+    }
+         
 
+         }
 
-    ws.onopen = function (event) {
-      console.log(event)
-
-      ws.send(event, username)
-    
-    };
-
-
-  }
-
-
-  addingMessage = (message) =>{
-    //Do the setState stuff in here
-    /*this.setState({
-     messages:[
-      {
-        username: this.state.currentUser.name,
-        content: message,
-        id: this.state.messages.length + 1,
+  updateMessage = (incomingMessage)    => {
+    console.log(this.state.messages, 'got here')
+      this.setState({  messages: [
+        ...this.state.messages,
+      { 
+        type: incomingMessage.type,
+        id: incomingMessage.id,
+        username: incomingMessage.username,
+        content: incomingMessage.content
+      }
       
-      },
-      ...this.state.messages
+    ]
 
-      ]
-    })
-    */
-
-
+      })
 
   }
 
+  updateUser = (incomingMessage)    => {
+    console.log(this.state.messages, 'fdgfgf')
+      this.setState({  messages: [
+        ...this.state.messages,
+      { 
+        type: incomingMessage.type,
+        id: incomingMessage.id,
+        username: '',
+        content: incomingMessage.content
+      }
+      
+    ]
+
+      })
+
+  }
+
+
+
+  newUser = (newUser) =>{
+    let userChange = {
+      type: "postNotification", content: this.state.currentUser.name + "changed their name to  " + newUser 
+    }
+    this.setState({currentUser: {name : newUser}})
+    const ws = this.socket 
+    this.socket.send(JSON.stringify(userChange))
+
+   
+  }    
+
+  addingMessage = (message) => {
+    //Do the setState stuff in here
+    //this.setState({
+    
+
+     let messages = {
+        type: 'postMessage',
+        username: this.state.currentUser.name,
+        content: message  
+      }
+      const ws = this.socket 
+      this.socket.send(JSON.stringify(messages))
+     
+    
+    }
 
   render() {
     return (
@@ -85,7 +107,7 @@ this.socket = new WebSocket('ws://localhost:3001');
         <a href="/" className="navbar-brand">Chatty</a>
       </nav>
       <MessageList messages = {this.state.messages}/>
-      <Chatbar addingMessage={this.addingMessage} name = {this.state.currentUser.name}/>
+      <Chatbar addingMessage={this.addingMessage} newUser={this.newUser} name = {this.state.currentUser.name}/>
       </div>
 
     );

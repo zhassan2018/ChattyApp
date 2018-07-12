@@ -5,13 +5,29 @@ class Chatbar extends Component {
 		evt.preventDefault()
 		const taskValue = evt.target.value
 		if (evt.key === 'Enter'){
-		this.props.addingMessage.onopen(taskValue)
+		this.props.addingMessage(taskValue)
 	}
+	
+
+
 	}
+
+	userName = (evt) => {
+		evt.preventDefault()
+		const taskValue = evt.target.value
+		if (evt.key === 'Enter'){
+		this.props.newUser(taskValue)
+
+	}
+}
+
+
+
+
   render() {
     return (
       <footer className="chatbar">
-        <input className="chatbar-username" placeholder={this.props.name} />
+        <input className="chatbar-username" placeholder={this.props.name} onKeyUp={this.userName}/>
         <input onKeyUp={this.userMessage} name="message" className="chatbar-message" placeholder="Type a message and hit ENTER" />
       </footer>
     );
