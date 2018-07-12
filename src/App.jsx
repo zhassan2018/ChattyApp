@@ -12,6 +12,7 @@ class App extends Component {
     this.state = {
       currentUser: {name: "Bob"}, 
       messages: [], 
+      users:{userNum: 0}
     }
 
     this.socket = new WebSocket('ws://localhost:3001');
@@ -30,9 +31,15 @@ class App extends Component {
       case 'incomingNotification':
       this.updateUser(incomingMessage)
       break;
+      case 'connection':
+      console.log('get here')
+      this.setState( {users: {userNum: incomingMessage.count}} );
+      break;
 
     }
     }
+
+    
          
 
          }
@@ -105,6 +112,7 @@ class App extends Component {
     <div>
       <nav className="navbar">
         <a href="/" className="navbar-brand">Chatty</a>
+        <span className='nav-users'>Users online: {this.state.users.userNum}</span>
       </nav>
       <MessageList messages = {this.state.messages}/>
       <Chatbar addingMessage={this.addingMessage} newUser={this.newUser} name = {this.state.currentUser.name}/>
