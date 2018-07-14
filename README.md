@@ -16,23 +16,23 @@ A single-page web chat app built using ReactJS.
 5. Visit http://localhost:3000
 
 ### Dependencies
--babel-core
--babel-preset-es2015
--babel-preset-react
--babel-preset-stage-0
--css-loader
--eslint
--eslint-plugin-react
--express
--node
--node-sass
--npm
--react
--react-dom
--sass-loader
--sockjs-client
--style-loader
--uuid
--webpack
--webpack-dev-server
--WebSockets
+- babel-core
+- babel-preset-es2015
+- babel-preset-react
+- babel-preset-stage-0
+- css-loader
+- eslint
+- eslint-plugin-react
+- express
+- node
+- node-sass
+- npm
+- react
+- react-dom
+- sass-loader
+- sockjs-client
+- style-loader
+- uuid
+- webpack
+- webpack-dev-server
+- WebSockets
