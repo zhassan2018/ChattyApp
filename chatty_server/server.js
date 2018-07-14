@@ -17,10 +17,10 @@ const server = express()
 const wss = new SocketServer({ server });
 
 let updateClientCount = () => {
-  let cnxObj = {};
-  cnxObj.type = "connection";
-  cnxObj['count'] = wss.clients.size;
-  cnxObj.id = uuidv4();
+  let connectObj = {};
+  connectObj.type = "connection";
+  connectObj['count'] = wss.clients.size;
+  connectObj.id = uuidv4();
   
  return cnxObj;
 };
