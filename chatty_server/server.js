@@ -1,6 +1,6 @@
 const express = require('express');
 const SocketServer = require('ws').Server;
-const uuidv4 = require('uuid/v4')
+const uuidv4 = require('uuid/v4');
 
 const PORT = 3001;
 

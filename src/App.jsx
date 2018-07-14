@@ -10,7 +10,7 @@ class App extends Component {
 
     this.state = {
 
-      currentUser: {name: "Bob"}, 
+      currentUser: {name: "Anonymous"}, 
       messages: [], 
       users:{userNum: 0}
     }
@@ -26,21 +26,20 @@ class App extends Component {
 
       switch(incomingMessage.type){
 
-      case 'incomingMessage':  
-        this.updateMessages(incomingMessage)
-        break;
+        case 'incomingMessage':  
+          this.updateMessages(incomingMessage)
+          break;
 
-      case 'incomingNotification':
-        this.updateUsers(incomingMessage)
-        break;
+        case 'incomingNotification':
+          this.updateUsers(incomingMessage)
+          break;
 
-      case 'connection':
-        this.setState( {users: {userNum: incomingMessage.count}} );
-        break;
+        case 'connection':
+          this.setState( {users: {userNum: incomingMessage.count}} );
+          break;
 
-      default:
-        throw new Error("Unknown event type " + incomingMessage.type);
-
+        default:
+          throw new Error("Unknown event type " + incomingMessage.type);
       }
     }  
   }
