@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 class Message extends Component {
 
   render() {
-  
+  //Determines whether to add notification or new message
     switch(this.props.type)	{
       case 'incomingMessage':	
         return(

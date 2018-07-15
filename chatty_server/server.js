@@ -12,7 +12,7 @@ const wss = new SocketServer({ server });
 
 
 let updateClientCount = () => {
-
+  //function which determines number of client online
   let connectObj = {};
   connectObj.type = "connection";
   connectObj['count'] = wss.clients.size;
@@ -24,7 +24,7 @@ let updateClientCount = () => {
 
 wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
-
+    //Determines type of message from client and send back message to all clients
   	let parsedMessage = JSON.parse(message);
   	switch(parsedMessage.type){
   		case "postMessage":
@@ -49,7 +49,7 @@ wss.on('connection', function connection(ws) {
   	}
   });
 
-
+  //Gives number of users
   wss.clients.forEach(function each(client) {
     let updateUserCount = updateClientCount();
     let stringUpdateUserCount = JSON.stringify(updateUserCount);
@@ -59,7 +59,7 @@ wss.on('connection', function connection(ws) {
   });
 
    ws.on('close', () => {
-
+    //Updates number of users when a client leaves
     wss.clients.forEach(function each(client) {
      let updateUserCount = updateClientCount();
      let stringUpdateUserCount = JSON.stringify(updateUserCount);

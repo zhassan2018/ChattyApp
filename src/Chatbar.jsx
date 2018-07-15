@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 class Chatbar extends Component {
+	//Calls function to update state for new message
 	userMessage = (evt)=>{
 		evt.preventDefault()
 		const taskValue = evt.target.value
@@ -14,6 +15,7 @@ class Chatbar extends Component {
 
 	}
 
+	//Calls function to update state for new user
 	userName = (evt) => {
 		evt.preventDefault()
 		const taskValue = evt.target.value

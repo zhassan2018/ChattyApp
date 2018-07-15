@@ -19,7 +19,7 @@ class App extends Component {
 
 
   componentDidMount() {
- 
+    //Receives data back from server and updates state accordingly
     this.socket.onmessage =  (event) => {
      
       const incomingMessage = JSON.parse(event.data);
@@ -44,7 +44,7 @@ class App extends Component {
     }  
   }
  
-
+  //Function to update state for messages
   updateMessages = (incomingMessage) => {
 
     this.setState({ messages: [
@@ -58,7 +58,7 @@ class App extends Component {
     })
   }
 
-
+  //Function to upsate state for users
   updateUsers = (incomingMessage) => {
 
     this.setState({  messages: [
@@ -72,7 +72,7 @@ class App extends Component {
     })
   }
 
-
+  //Takes new user input and sends data to server
   addUser = (newUser) => {
 
     if (newUser === ''){
@@ -86,8 +86,9 @@ class App extends Component {
     this.setState({currentUser: {name : newUser}});
 
     this.socket.send(JSON.stringify(userChange)); 
-  }    
+  }
 
+  //Takes new message input and sends data to server
   addMessage = (message) => {
 
     let messages = {
