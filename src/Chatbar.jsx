@@ -5,7 +5,9 @@ class Chatbar extends Component {
 		evt.preventDefault()
 		const taskValue = evt.target.value
 		if (evt.key === 'Enter'){
-		this.props.addingMessage(taskValue)
+		evt.target.value = '';
+		this.props.addingMessage(taskValue);
+
 	}
 	
 
@@ -16,6 +18,7 @@ class Chatbar extends Component {
 		evt.preventDefault()
 		const taskValue = evt.target.value
 		if (evt.key === 'Enter'){
+		evt.target.value = '';
 		this.props.newUser(taskValue)
 
 	}

@@ -75,6 +75,10 @@ class App extends Component {
 
   addUser = (newUser) => {
 
+    if (newUser === ''){
+      newUser = "Anonymous";
+    }
+
     let userChange = {
       type: "postNotification", content: `${this.state.currentUser.name} changed their name to ${newUser}` 
     }
